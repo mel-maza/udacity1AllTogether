@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import CreateNewUser from './CreateNewUser';
+import UserList from './UserList';
+import ToggleNumberOfGames from './ToggleNumberOfGames';
 
 /*
 This exercise will help you put together and practice all of the concepts you've
@@ -13,12 +15,21 @@ The instructions for this project are located in the `instructions.md` file.
 
 class App extends Component {
   state = {
-  	users: []
+  	users: [],
+    numberOfGames: '0'
   }
 
 	 handleAddUser = userName => {
             this.setState(prevState => ({ users: [...prevState.users, userName] }));
       };
+
+    handleToggleGameNumber = (showNumber) => {
+            if (showNumber) {
+                this.setState({numberOfGames: '0'})
+            } else {
+            	this.setState({numberOfGames: '*/'})
+            }
+        }
 
   render() {
     return (
@@ -29,7 +40,8 @@ class App extends Component {
         </header>
     	<div>
     	<CreateNewUser onAddUser={this.handleAddUser} />
-		{this.state.users.map((user) => <li key={user}>{user}</li>)}
+		<ToggleNumberOfGames onToggleGameNumber={this.handleToggleGameNumber} />
+		<UserList users={this.state.users} gameNumber={this.state.numberOfGames} />
     	</div>
       </div>
     );
